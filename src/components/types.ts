@@ -14,6 +14,8 @@ export interface Country {
     leagueId: number;
     countryId: number;
     country?: Country;
+    league?: League;
+    continent?: string
   }
   
   export interface Player {
@@ -42,6 +44,12 @@ export interface Country {
     error: string | null;
   }
 
+  export type Endpoint = 
+    | 'players'
+    | 'players?_expand=team&_expand=country'
+    | 'teams'
+    | 'leagues'
+    | 'countries';
   
   
   export type Action =

@@ -1,51 +1,316 @@
 {
-    "players": [
-      { "id": 1, "name": "LeBron James", "teamId": 1, "position": "Forward", "countryId": 1 },
-      { "id": 2, "name": "Stephen Curry", "teamId": 2, "position": "Guard", "countryId": 1 },
-      { "id": 3, "name": "Giannis Antetokounmpo", "teamId": 3, "position": "Forward", "countryId": 2 },
-      { "id": 4, "name": "Luka Dončić", "teamId": 4, "position": "Guard", "countryId": 3 },
-      { "id": 5, "name": "Nikola Jokić", "teamId": 5, "position": "Center", "countryId": 4 },
-      { "id": 6, "name": "Kevin Durant", "teamId": 6, "position": "Forward", "countryId": 1 },
-      { "id": 7, "name": "Joel Embiid", "teamId": 7, "position": "Center", "countryId": 5 },
-      { "id": 8, "name": "Jimmy Butler", "teamId": 8, "position": "Forward", "countryId": 1 },
-      { "id": 9, "name": "Jayson Tatum", "teamId": 9, "position": "Forward", "countryId": 1 },
-      { "id": 10, "name": "Ja Morant", "teamId": 10, "position": "Guard", "countryId": 1 }
-    ],
-    "teams": [
-      { "id": 1, "name": "Los Angeles Lakers", "leagueId": 1, "countryId": 1 },
-      { "id": 2, "name": "Golden State Warriors", "leagueId": 1, "countryId": 1 },
-      { "id": 3, "name": "Milwaukee Bucks", "leagueId": 1, "countryId": 1 },
-      { "id": 4, "name": "Dallas Mavericks", "leagueId": 1, "countryId": 1 },
-      { "id": 5, "name": "Denver Nuggets", "leagueId": 1, "countryId": 1 },
-      { "id": 6, "name": "Brooklyn Nets", "leagueId": 1, "countryId": 1 },
-      { "id": 7, "name": "Philadelphia 76ers", "leagueId": 1, "countryId": 1 },
-      { "id": 8, "name": "Miami Heat", "leagueId": 1, "countryId": 1 },
-      { "id": 9, "name": "Boston Celtics", "leagueId": 1, "countryId": 1 },
-      { "id": 10, "name": "Memphis Grizzlies", "leagueId": 1, "countryId": 1 }
-    ],
-    "leagues": [
-      { "id": 1, "name": "NBA", "countryId": 1 },
-      { "id": 2, "name": "EuroLeague", "countryId": 2 },
-      { "id": 3, "name": "ACB", "countryId": 3 },
-      { "id": 4, "name": "CBA", "countryId": 4 },
-      { "id": 5, "name": "LNB Pro A", "countryId": 5 },
-      { "id": 6, "name": "NBL", "countryId": 6 },
-      { "id": 7, "name": "BSL", "countryId": 7 },
-      { "id": 8, "name": "BCL", "countryId": 8 },
-      { "id": 9, "name": "LKL", "countryId": 9 },
-      { "id": 10, "name": "VTB United League", "countryId": 10 }
-    ],
-    "countries": [
-        { "id": 1, "name": "USA", "continent": "North America", "flag": "https://flagcdn.com/w320/us.png" },
-        { "id": 2, "name": "Greece", "continent": "Europe", "flag": "https://flagcdn.com/w320/gr.png" },
-        { "id": 3, "name": "Slovenia", "continent": "Europe", "flag": "https://flagcdn.com/w320/si.png" },
-        { "id": 4, "name": "Serbia", "continent": "Europe", "flag": "https://flagcdn.com/w320/rs.png" },
-        { "id": 5, "name": "France", "continent": "Europe", "flag": "https://flagcdn.com/w320/fr.png" },
-        { "id": 6, "name": "Australia", "continent": "Oceania", "flag": "https://flagcdn.com/w320/au.png" },
-        { "id": 7, "name": "Turkey", "continent": "Europe", "flag": "https://flagcdn.com/w320/tr.png" },
-        { "id": 8, "name": "Spain", "continent": "Europe", "flag": "https://flagcdn.com/w320/es.png" },
-        { "id": 9, "name": "Lithuania", "continent": "Europe", "flag": "https://flagcdn.com/w320/lt.png" },
-        { "id": 10, "name": "Russia", "continent": "Europe", "flag": "https://flagcdn.com/w320/ru.png" }
-      ]
-  }
-  
+  "players": [
+    {
+      "name": "LeBron James",
+      "position": "Forward",
+      "teamId": 1,
+      "countryId": 1,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Stephen Curry",
+      "teamId": 2,
+      "position": "Guard",
+      "countryId": 1
+    },
+    {
+      "id": 3,
+      "name": "Giannis Antetokounmpo",
+      "teamId": 3,
+      "position": "Forward",
+      "countryId": 2
+    },
+    {
+      "id": 4,
+      "name": "Luka Dončić",
+      "teamId": 4,
+      "position": "Guard",
+      "countryId": 3
+    },
+    {
+      "id": 5,
+      "name": "Nikola Jokić",
+      "teamId": 5,
+      "position": "Center",
+      "countryId": 4
+    },
+    {
+      "id": 6,
+      "name": "Kevin Durant",
+      "teamId": 6,
+      "position": "Forward",
+      "countryId": 1
+    },
+    {
+      "id": 7,
+      "name": "Joel Embiid",
+      "teamId": 7,
+      "position": "Center",
+      "countryId": 5
+    },
+    {
+      "id": 8,
+      "name": "Jimmy Butler",
+      "teamId": 8,
+      "position": "Forward",
+      "countryId": 1
+    },
+    {
+      "id": 9,
+      "name": "Jayson Tatum",
+      "teamId": 9,
+      "position": "Forward",
+      "countryId": 1
+    },
+    {
+      "name": "John Stockton",
+      "position": "Guard",
+      "teamId": 3,
+      "countryId": 2,
+      "id": 10
+    }
+  ],
+  "teams": [
+    {
+      "name": "Los Angeles Lakers",
+      "leagueId": 2,
+      "countryId": 2,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Golden State Warriors",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "name": "Milwaukee Bucks",
+      "leagueId": 2,
+      "countryId": 6,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "Dallas Mavericks",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Denver Nuggets",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 6,
+      "name": "Brooklyn Nets",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 7,
+      "name": "Philadelphia 76ers",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 8,
+      "name": "Miami Heat",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 9,
+      "name": "Boston Celtics",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 10,
+      "name": "Memphis Grizzlies",
+      "leagueId": 1,
+      "countryId": 1
+    },
+    {
+      "id": 11,
+      "name": "Olympiacos",
+      "leagueId": 2,
+      "countryId": 2
+    },
+    {
+      "id": 12,
+      "name": "Panathinaikos",
+      "leagueId": 2,
+      "countryId": 2
+    },
+    {
+      "id": 13,
+      "name": "Real Madrid",
+      "leagueId": 3,
+      "countryId": 8
+    },
+    {
+      "id": 14,
+      "name": "Barcelona",
+      "leagueId": 3,
+      "countryId": 8
+    },
+    {
+      "id": 15,
+      "name": "ASVEL",
+      "leagueId": 5,
+      "countryId": 5
+    },
+    {
+      "id": 16,
+      "name": "Monaco Basket",
+      "leagueId": 5,
+      "countryId": 5
+    },
+    {
+      "id": 17,
+      "name": "Anadolu Efes",
+      "leagueId": 7,
+      "countryId": 7
+    },
+    {
+      "id": 18,
+      "name": "Fenerbahçe",
+      "leagueId": 7,
+      "countryId": 7
+    },
+    {
+      "id": 19,
+      "name": "Žalgiris",
+      "leagueId": 9,
+      "countryId": 9
+    },
+    {
+      "id": 20,
+      "name": "Rytas",
+      "leagueId": 9,
+      "countryId": 9
+    },
+    {
+      "name": "Cbet Jonava",
+      "leagueId": 9,
+      "countryId": 9,
+      "id": 21
+    }
+  ],
+  "leagues": [
+    {
+      "id": 1,
+      "name": "NBA",
+      "countryId": 1
+    },
+    {
+      "id": 2,
+      "name": "EuroLeague",
+      "countryId": 2
+    },
+    {
+      "id": 3,
+      "name": "ACB",
+      "countryId": 8
+    },
+    {
+      "id": 4,
+      "name": "CBA",
+      "countryId": 4
+    },
+    {
+      "id": 5,
+      "name": "LNB Pro A",
+      "countryId": 5
+    },
+    {
+      "id": 6,
+      "name": "NBL",
+      "countryId": 6
+    },
+    {
+      "id": 7,
+      "name": "BSL",
+      "countryId": 7
+    },
+    {
+      "id": 8,
+      "name": "BCL",
+      "countryId": 8
+    },
+    {
+      "id": 9,
+      "name": "LKL",
+      "countryId": 9
+    },
+    {
+      "id": 10,
+      "name": "VTB United League",
+      "countryId": 10
+    }
+  ],
+  "countries": [
+    {
+      "id": 1,
+      "name": "USA",
+      "continent": "North America",
+      "flag": "https://flagcdn.com/w320/us.png"
+    },
+    {
+      "id": 2,
+      "name": "Greece",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/gr.png"
+    },
+    {
+      "id": 3,
+      "name": "Slovenia",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/si.png"
+    },
+    {
+      "id": 4,
+      "name": "Serbia",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/rs.png"
+    },
+    {
+      "id": 5,
+      "name": "France",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/fr.png"
+    },
+    {
+      "id": 6,
+      "name": "Australia",
+      "continent": "Oceania",
+      "flag": "https://flagcdn.com/w320/au.png"
+    },
+    {
+      "id": 7,
+      "name": "Turkey",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/tr.png"
+    },
+    {
+      "id": 8,
+      "name": "Spain",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/es.png"
+    },
+    {
+      "id": 9,
+      "name": "Lithuania",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/lt.png"
+    },
+    {
+      "id": 10,
+      "name": "Russia",
+      "continent": "Europe",
+      "flag": "https://flagcdn.com/w320/ru.png"
+    }
+  ]
+}
