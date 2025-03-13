@@ -1,12 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useBasketballContext } from "../BasketballContextProvider";
-import { Link } from "react-router-dom";
+import { LeagueFormData } from "../../types/basketball";
+import axios from "axios";
+import { API_URL } from "../../api/apiUrl";
+import LeagueForm from "../../components/LeagueForm/LeagueForm";
+import LeagueDetails from "../../components/LeagueDetails/LeagueDetails";
 
 const LeaguePage = () => {
     const { id } = useParams<{ id: string }>();
     const { state, fetchData } = useBasketballContext();
     const [isLoading, setIsLoading] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+     const navigate = useNavigate();
+    const [formData, setFormData] = useState<LeagueFormData>({
+        name: "",
+        countryId: 0
+      });
     const fetchInProgress = useRef(false);
   
     const loadLeague = useCallback(async () => {
@@ -16,9 +26,7 @@ const LeaguePage = () => {
       setIsLoading(true);
       
       try {
-        // First fetch all leagues to ensure we have the array
         await fetchData("leagues", "leagues?_expand=country");
-        // Then fetch teams for this league
         await fetchData("teams", `teams?leagueId=${id}&_expand=country`);
       } finally {
         setIsLoading(false);
@@ -26,81 +34,127 @@ const LeaguePage = () => {
       }
     }, [id, fetchData]);
 
+    const loadCountries = useCallback(async () => {
+      if (fetchInProgress.current) return;
+      
+      fetchInProgress.current = true;
+      setIsLoading(true);
+      
+      try {
+        await Promise.all([
+          fetchData("countries", "countries")
+        ]);
+      } finally {
+        setIsLoading(false);
+        fetchInProgress.current = false;
+      }
+    }, [fetchData]);
+
+
+
     useEffect(() => {
         loadLeague();
     }, [loadLeague]);
 
-    // Show loading state while fetching
+    useEffect(() => {
+      if (state.leagues && Array.isArray(state.leagues)) {
+        const league = state.leagues.find(p => p.id === Number(id));
+        if (league) {
+          setFormData({
+            name: league.name,
+            countryId: league.countryId
+          });
+        }
+      }
+    }, [state.leagues, id]);
+
+    const handleEdit = async () => {
+      await loadCountries();
+      setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+      setIsEditing(false);
+      if (state.leagues && Array.isArray(state.leagues)) {
+        const league = state.leagues.find(p => p.id === Number(id));
+        if (league) {
+          setFormData({
+            name: league.name,
+            countryId: league.countryId
+          });
+        }
+      }
+    };
+
+
+    const handleSave = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try {
+        setIsLoading(true);
+        await axios.put(`${API_URL}/leagues/${id}`, formData);
+        await loadLeague();
+        setIsEditing(false);
+      } catch (error) {
+        console.error('Error updating league:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    const handleDelete = async () => {
+      if (window.confirm('Are you sure you want to delete this league?')) {
+        try {
+          setIsLoading(true);
+          await axios.delete(`${API_URL}/leagues/${id}`);
+          navigate('/project/leagues');
+        } catch (error) {
+          console.error('Error deleting league:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+  
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({
+        ...prev,
+        [name]: name === 'teamId' || name === 'countryId' ? Number(value) : value
+      }));
+  };
+    
     if (isLoading) {
         return <div>Loading...</div>;
     }
 
-    // Check if leagues is an array before using find
-    if (!Array.isArray(state.leagues)) {
-        return <div>Loading leagues...</div>;
-    }
-
-    // Get the league from state
     const league = state.leagues.find(l => l.id === Number(id));
 
-    // Show not found if no league is found
     if (!league) {
         return <div>League not found</div>;
     }
 
-    // Get teams for this league
-    const leagueTeams = Array.isArray(state.teams) 
-        ? state.teams.filter(team => team.leagueId === Number(id))
-        : [];
-
     return (
-        <div>
-          <h1>{league.name}</h1>
-          
-          <div>
-            <h2>Country</h2>
-            {league.country && (
-              <div>
-                <Link to={`/project/countries/${league.country.id}`}>
-                  {league.country.name}
-                </Link>
-                <div>
-                  <img 
-                    width="50px" 
-                    src={league.country.flag} 
-                    alt={`Flag of ${league.country.name}`} 
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <h2>Teams in this League</h2>
-            {leagueTeams.length > 0 ? (
-              <ul>
-                {leagueTeams.map(team => (
-                  <li key={team.id}>
-                    <Link to={`/project/teams/${team.id}`}>{team.name}</Link>
-                    {team.country && (
-                      <span>
-                        {' '}- <Link to={`/project/countries/${team.country.id}`}>{team.country.name}</Link>
-                        {' '}<img width="25px" src={team.country.flag} alt={team.country.name} />
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No teams found in this league</p>
-            )}
-          </div>
-
-          <div>
-            <Link to="/project/leagues">Back to Leagues List</Link>
-          </div>
-        </div>
+      <div>
+      {isEditing ? (
+        <LeagueForm
+          formData={formData}
+          onSubmit={handleSave}
+          onChange={handleInputChange}
+          onCancel={handleCancel}
+          state={state}
+          submitLabel="Save"
+          title="Edit League"
+        />
+      ) : (
+        <LeagueDetails
+          league = {league}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
+    </div>
     );
 };
+
 
 export default LeaguePage;

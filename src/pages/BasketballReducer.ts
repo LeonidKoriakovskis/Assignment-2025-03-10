@@ -1,5 +1,5 @@
  
-import { Action,  State} from "../components/types"
+import { Action,  State} from "../types/types"
 
 export const initialState: State = {
     players: [],

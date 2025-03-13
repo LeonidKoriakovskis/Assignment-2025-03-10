@@ -9,6 +9,8 @@ export interface Country {
   }
   
   export interface Team {
+    homeArena: any;
+    players: boolean;
     id: number;
     name: string;
     leagueId: number;
@@ -16,6 +18,7 @@ export interface Country {
     country?: Country;
     league?: League;
     continent?: string
+
   }
   
   export interface Player {
@@ -24,8 +27,15 @@ export interface Country {
     position: string;
     teamId: number;
     countryId: number;
-    team?: Team;
-    country?: Country;
+    team?: {
+      id: number;
+      name: string;
+    };
+    country?: {
+      id: number;
+      name: string;
+      flag: string;
+    };
   }
   
   export interface League {

@@ -11,13 +11,59 @@ export interface Country {
   flag: string;
 }
 
+export interface HomeArena {
+  id: number;
+  name: string;
+}
+
+export interface Player {
+  id: number;
+  name: string;
+}
+
+export interface Coach {
+  id: number;
+  name: string;
+}
+
 export interface Team {
   id: number;
   name: string;
-  leagueId: number;
-  countryId: number;
-  league?: League;
-  country?: Country;
+  league?: {
+    id: number;
+    name: string;
+  };
+  country?: {
+    id: number;
+    name: string;
+    flag: string;
+  };
+  stats?: TeamStats;
+  roster?: Roster;
+}
+
+export interface RosterPlayer {
+  playerId: number;
+  jerseyNumber: number;
+  role: string;
+  startDate: string;
+}
+
+export interface Roster {
+  id: number;
+  teamId: number;
+  season: string;
+  players: RosterPlayer[];
+}
+
+export interface TeamStats {
+  teamId: number;
+  totalChampionships: number;
+  establishedYear: number;
+  homeArena: string;
+  arenaCapacity: number;
+  teamValue: string;
+  headCoach: string;
 }
 
 export interface Player {
@@ -42,6 +88,20 @@ export interface PlayerFormData {
   teamId: number;
   countryId: number;
 }
+
+
+export interface LeagueFormData {
+  name: string;
+  countryId: number;
+}
+export interface CountryFormData {
+  name: string;
+  continent: string;
+  flag: string;
+}
+
+
+
 
 export interface BasketballState {
   teams: Team[];

@@ -1,116 +1,150 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useBasketballContext } from "../BasketballContextProvider";
-import { Link } from "react-router-dom";
+import { CountryFormData } from "../../types/basketball";
+import axios from "axios";
+import { API_URL } from "../../api/apiUrl";
+import CountryForm from "../../components/CountryForm/CountryForm";
+import CountryDetails from "../../components/CountryDetails/CountryDetails";
 
 const CountryPage = () => {
-    const { id } = useParams<{ id: string }>();
-    const { state, fetchData } = useBasketballContext();
-    const [isLoading, setIsLoading] = useState(false);
-    const fetchInProgress = useRef(false);
-  
-    const loadCountry = useCallback(async () => {
-      if (!id || fetchInProgress.current) return;
-      
-      fetchInProgress.current = true;
+  const { id } = useParams<{ id: string }>();
+  const { state, fetchData } = useBasketballContext();
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState<CountryFormData>({
+    name: "",
+    continent: "",
+    flag: ""
+  });
+  const fetchInProgress = useRef(false);
+
+  const loadCountry = useCallback(async () => {
+    if (!id || fetchInProgress.current) return;
+    
+    fetchInProgress.current = true;
+    setIsLoading(true);
+    
+    try {
+      await fetchData("countries", "countries");
+      await Promise.all([
+        fetchData("teams", `teams?countryId=${id}&_expand=league`),
+        fetchData("leagues", `leagues?countryId=${id}`)
+      ]);
+    } finally {
+      setIsLoading(false);
+      fetchInProgress.current = false;
+    }
+  }, [id, fetchData]);
+
+  useEffect(() => {
+    loadCountry();
+  }, [loadCountry]);
+
+  useEffect(() => {
+    if (state.countries && Array.isArray(state.countries)) {
+      const country = state.countries.find(p => p.id === Number(id));
+      if (country) {
+        setFormData({
+          name: country.name,
+          continent: country.continent,
+          flag: country.flag
+        });
+      }
+    }
+  }, [state.countries, id]);
+
+  const handleEdit = async () => {
+    await loadCountry();
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    if (state.countries && Array.isArray(state.countries)) {
+      const country = state.countries.find(p => p.id === Number(id));
+      if (country) {
+        setFormData({
+          name: country.name,
+          continent: country.continent,
+          flag: country.flag
+        });
+      }
+    }
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
       setIsLoading(true);
-      
+      await axios.put(`${API_URL}/countries/${id}`, formData);
+      await loadCountry();
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating country:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this country?')) {
       try {
-        // First fetch all countries to ensure we have the array
-        await fetchData("countries", "countries");
-        // Then fetch teams and leagues for this country
-        await Promise.all([
-          fetchData("teams", `teams?countryId=${id}&_expand=league`),
-          fetchData("leagues", `leagues?countryId=${id}`)
-        ]);
+        setIsLoading(true);
+        await axios.delete(`${API_URL}/countries/${id}`);
+        navigate('/project/countries');
+      } catch (error) {
+        console.error('Error deleting country:', error);
       } finally {
         setIsLoading(false);
-        fetchInProgress.current = false;
       }
-    }, [id, fetchData]);
-
-    useEffect(() => {
-        loadCountry();
-    }, [loadCountry]);
-
-    // Show loading state while fetching
-    if (isLoading) {
-        return <div>Loading...</div>;
     }
+  };
 
-    // Check if countries is an array before using find
-    if (!Array.isArray(state.countries)) {
-        return <div>Loading countries...</div>;
-    }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-    // Get the country from state
-    const country = state.countries.find(c => c.id === Number(id));
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    // Show not found if no country is found
-    if (!country) {
-        return <div>Country not found</div>;
-    }
+  if (!Array.isArray(state.countries)) {
+    return <div>Loading countries...</div>;
+  }
 
-    // Get teams and leagues for this country
-    const countryTeams = Array.isArray(state.teams) 
-        ? state.teams.filter(team => team.countryId === Number(id))
-        : [];
+  const country = state.countries.find(c => c.id === Number(id));
 
-    const countryLeagues = Array.isArray(state.leagues)
-        ? state.leagues.filter(league => league.countryId === Number(id))
-        : [];
+  if (!country) {
+    return <div>Country not found</div>;
+  }
 
-    return (
-        <div>
-          <h1>{country.name}</h1>
-          <div>
-            <img 
-              width="100px" 
-              src={country.flag} 
-              alt={`Flag of ${country.name}`} 
-            />
-          </div>
-
-          <div>
-            <h2>Leagues in {country.name}</h2>
-            {countryLeagues.length > 0 ? (
-              <ul>
-                {countryLeagues.map(league => (
-                  <li key={league.id}>
-                    <Link to={`/project/leagues/${league.id}`}>{league.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No leagues found in this country</p>
-            )}
-          </div>
-
-          <div>
-            <h2>Teams in {country.name}</h2>
-            {countryTeams.length > 0 ? (
-              <ul>
-                {countryTeams.map(team => (
-                  <li key={team.id}>
-                    <Link to={`/project/teams/${team.id}`}>{team.name}</Link>
-                    {team.league && (
-                      <span>
-                        {' '}- <Link to={`/project/leagues/${team.league.id}`}>{team.league.name}</Link>
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No teams found in this country</p>
-            )}
-          </div>
-
-          <div>
-            <Link to="/project/countries">Back to Countries List</Link>
-          </div>
-        </div>
-    );
+  return (
+    <div>
+      {isEditing ? (
+        <CountryForm
+          formData={formData}
+          onSubmit={handleSave}
+          onChange={handleInputChange}
+          onCancel={handleCancel}
+          state={state}
+          submitLabel="Save"
+          title="Edit country"
+        />
+      ) : (
+        <CountryDetails
+          country={country}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
+    </div>
+  );
 };
 
 export default CountryPage;

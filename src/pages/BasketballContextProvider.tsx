@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useReducer, useCallback, ReactNode, useContext } from "react";
-import { State, Player, Team, League, Country } from '../components/types';
+import { State, Player, Team, League, Country } from '../types/types';
 import axios from 'axios';
 import { ActionTypes, basketballReducer, initialState } from "./BasketballReducer";
 import { API_URL } from "../api/apiUrl";
