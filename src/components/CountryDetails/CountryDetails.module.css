@@ -1,0 +1,166 @@
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .countryHeader {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .flag {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .infoSection {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .label {
+    font-weight: 600;
+    color: #666;
+    min-width: 100px;
+  }
+  
+  .value {
+    color: #333;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .editButton {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .editButton:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .deleteButton {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .deleteButton:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+  }
+  
+  .backLinkContainer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .backLink {
+    display: inline-flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .backLink:hover {
+    color: #343a40;
+  }
+  
+ 
+  .loading {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin: 2rem 0;
+  }
+  
+  
+  .error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+  }
+  
+
+  @media (max-width: 768px) {
+    .container {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .countryHeader {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .flag {
+      width: 100px;
+      height: 66px;
+    }
+  
+    .actionButtons {
+      flex-direction: column;
+    }
+  
+    .button {
+      width: 100%;
+    }
+  
+    .infoItem {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  

@@ -6,6 +6,7 @@ import { LeagueFormData } from '../../types/basketball';
 import { API_URL } from '../../api/apiUrl';
 import axios from 'axios';
 import LeagueForm from '../../components/LeagueForm/LeagueForm';
+import styles from './LeaguesPage.module.css';
 
 const LeaguesPage = () => {
   const { state, fetchData } = useBasketballContext();
@@ -96,11 +97,10 @@ const LeaguesPage = () => {
   }
 
   return (
-    <div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>Leagues</h1>
-          <button onClick={handleAdd}>Add League</button>
+    <div className={styles.container}>
+      <div className={styles.header}>
+          <h1 className={styles.title}>Leagues</h1>
+          <button className={styles.addButton} onClick={handleAdd}>Add League</button>
       </div>
 
       {isAdding && (
@@ -115,24 +115,45 @@ const LeaguesPage = () => {
         />
       )}
 
-
-      {(state.loading || isLoading) && <p>Loading...</p>}
-      {state.error && <p>Error: {state.error}</p>}
-      <ul>
+      {(state.loading || isLoading) && <p className={styles.loading}>Loading...</p>}
+      {state.error && <p className={styles.error}>Error: {state.error}</p>}
+      
+      <ul className={styles.leaguesList}>
         {state.leagues.map((league) => (
-          <li key={league.id}>
-            <Link to={`/project/leagues/${league.id}`}>{league.name}</Link>
-            {league.country && (
-              <span>
-                {' '}- <Link to={`/project/countries/${league.country.id}`}>{league.country.name}</Link>
-                {' '}<img width={'25px'} src={league.country.flag} alt={league.country.name} />
-              </span>
-            )}
+          <li key={league.id} className={styles.leagueCard}>
+            <div className={styles.leagueContent}>
+              <div className={styles.leagueInfo}>
+                <Link 
+                  to={`/project/leagues/${league.id}`}
+                  className={styles.leagueName}
+                >
+                  {league.name}
+                </Link>
+                
+                {league.country && (
+                  <div className={styles.countryInfo}>
+                    <span>-</span>
+                    <Link 
+                      to={`/project/countries/${league.country.id}`}
+                      className={styles.countryLink}
+                    >
+                      {league.country.name}
+                    </Link>
+                    <img 
+                      className={styles.flag}
+                      src={league.country.flag} 
+                      alt={league.country.name} 
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
           </li>
         ))}
       </ul>
     </div>
-  );
+);
+
 };
 
 export default LeaguesPage;

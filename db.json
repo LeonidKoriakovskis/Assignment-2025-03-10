@@ -246,11 +246,6 @@
       "countryId": 9
     },
     {
-      "id": 10,
-      "name": "VTB United League",
-      "countryId": 10
-    },
-    {
       "name": "BTL",
       "countryId": 6,
       "id": 11
@@ -310,12 +305,6 @@
       "name": "Lithuania",
       "continent": "Europe",
       "flag": "https://flagcdn.com/w320/lt.png"
-    },
-    {
-      "id": 10,
-      "name": "Russia",
-      "continent": "Europe",
-      "flag": "https://flagcdn.com/w320/ru.png"
     }
   ],
   "teamStats": [
@@ -366,5 +355,4 @@
       ]
     }
   ]
-
 }

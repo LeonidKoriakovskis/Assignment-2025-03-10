@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../api/apiUrl';
 import TeamForm from '../../components/TeamForm/TeamForm';
 import { TeamFormData } from '../../types/basketball';
-import styles from '../../components/TeamsPage/TeamsPage.module.css';
+import styles from './TeamsPage.module.css';
 
 const TeamsPage = () => {
   const { state, fetchData } = useBasketballContext();
@@ -101,14 +101,11 @@ const TeamsPage = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Teams</h1>
-        <button 
-          className={styles.addButton}
-          onClick={handleAdd}
-        >
+        <button className={styles.addButton} onClick={handleAdd}>
           Add Team
         </button>
       </div>
-
+  
       {isAdding && (
         <TeamForm
           formData={formData}
@@ -120,70 +117,63 @@ const TeamsPage = () => {
           title="Add New Team"
         />
       )}
-
-      {(state.loading || isLoading) && (
-        <p className={styles.loading}>Loading...</p>
-      )}
-      
-      {state.error && (
-        <p className={styles.error}>Error: {state.error}</p>
-      )}
-
+  
+      {(state.loading || isLoading) && <p className={styles.loading}>Loading...</p>}
+      {state.error && <p className={styles.error}>Error: {state.error}</p>}
+  
       <ul className={styles.teamsList}>
         {state.teams.map((team) => (
           <li key={team.id} className={styles.teamCard}>
-            <Link 
-              to={`/project/teams/${team.id}`} 
-              className={styles.teamLink}
-            >
-              <div className={styles.teamContent}>
-                <div className={styles.teamHeader}>
-                  {team.logo && (
-                    <img 
-                      className={styles.teamLogo}
-                      src={team.logo} 
-                      alt={`${team.name} logo`}
-                    />
-                  )}
-                  <h2 className={styles.teamName}>{team.name}</h2>
-                </div>
-
-                <div className={styles.teamInfo}>
-                  {team.league && (
-                    <div className={styles.infoItem}>
-                      <span className={styles.label}>League:</span>
-                      <Link 
-                        to={`/project/leagues/${team.league.id}`}
-                        className={styles.leagueLink}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {team.league.name}
-                      </Link>
-                    </div>
-                  )}
-
-                  {team.country && (
-                    <div className={styles.infoItem}>
-                      <span className={styles.label}>Country:</span>
-                      <div className={styles.countryInfo}>
-                        <Link 
-                          to={`/project/countries/${team.country.id}`}
-                          className={styles.countryLink}
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {team.country.name}
-                        </Link>
-                        <img 
-                          className={styles.flag}
-                          src={team.country.flag} 
-                          alt={team.country.name}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+            <div className={styles.teamContent}>
+              <div className={styles.teamHeader}>
+                {team.logo && (
+                  <img
+                    className={styles.teamLogo}
+                    src={team.logo}
+                    alt={`${team.name} logo`}
+                  />
+                )}
+                <Link 
+                  to={`/project/teams/${team.id}`} 
+                  className={styles.teamName}
+                >
+                  {team.name}
+                </Link>
               </div>
-            </Link>
+  
+              <div className={styles.teamInfo}>
+                {team.league && (
+                  <div className={styles.infoItem}>
+                    <span className={styles.label}>League:</span>
+                    <Link 
+                      to={`/project/leagues/${team.league.id}`}
+                      className={styles.leagueLink}
+                    >
+                      {team.league.name}
+                    </Link>
+                  </div>
+                )}
+  
+                {team.country && (
+                  <div className={styles.infoItem}>
+                    <span className={styles.label}>Country:</span>
+                    <div className={styles.countryInfo}>
+                      <Link 
+                        to={`/project/countries/${team.country.id}`}
+                        className={styles.countryLink}
+                      >
+                        {team.country.name}
+                      </Link>
+                      <img 
+                        className={styles.flag}
+                        src={team.country.flag} 
+                        alt={team.country.name}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </li>
         ))}
       </ul>

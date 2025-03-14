@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../api/apiUrl';
 import CountryForm from '../../components/CountryForm/CountryForm';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import styles from './CountriesPage.module.css';
 
 const CountriesPage = () => {
   const { state, fetchData } = useBasketballContext();
@@ -81,36 +82,47 @@ const CountriesPage = () => {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Countries</h1>
-        <button onClick={handleAdd} disabled={isLoading}>Add Country</button>
-      </div>
-
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Countries</h1>
+        <button className={styles.addButton} onClick={handleAdd}>
+          Add Country
+        </button>
+      </header>
+  
       {isAdding && (
-        <CountryForm
-          formData={formData}
-          onSubmit={handleSave}
-          onChange={handleInputChange}
-          onCancel={handleCancel}
-          state={state}
-          submitLabel="Add"
-          title="Add New Country"
-        />
+        <div className={styles.formContainer}>
+          <CountryForm
+            formData={formData}
+            onSubmit={handleSave}
+            onChange={handleInputChange}
+            onCancel={handleCancel}
+            state={state}
+            submitLabel="Add"
+            title="Add New Country"
+          />
+        </div>
       )}
-      
-      {state.error && <p>Error: {state.error}</p>}
-      
-      <ul>
+  
+      {(state.loading || isLoading) && <p className={styles.loading}>Loading...</p>}
+      {state.error && <p className={styles.error}>Error: {state.error}</p>}
+  
+      <div className={styles.countriesGrid}>
         {state.countries.map((country) => (
-          <li key={country.id}>
-            <Link to={`/project/countries/${country.id}`}>{country.name}</Link>
-            <span>
-              {country.flag && <img width="25" src={country.flag} alt={country.name} />}
-            </span>
-          </li>
+          <div key={country.id} className={styles.countryCard}>
+            <Link to={`/project/countries/${country.id}`} className={styles.countryLink}>
+              <div className={styles.countryHeader}>
+                <img 
+                  src={country.flag} 
+                  alt={`${country.name} flag`} 
+                  className={styles.flag}
+                />
+                <h2 className={styles.countryName}>{country.name}</h2>
+              </div>
+            </Link>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
