@@ -1,0 +1,116 @@
+.players-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: #111827;
+  }
+  
+  .add-button {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .add-button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .loading {
+    color: #6b7280;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  
+  .error {
+    color: #dc2626;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    border-left: 4px solid #dc2626;
+    background-color: #fee2e2;
+  }
+  
+  .players-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .player-item {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  
+  .player-item:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .player-name {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .player-name:hover {
+    text-decoration: underline;
+  }
+  
+  .team-info, .country-info {
+    color: #6b7280;
+  }
+  
+  .team-link, .country-link {
+    color: #4b5563;
+    text-decoration: none;
+  }
+  
+  .team-link:hover, .country-link:hover {
+    text-decoration: underline;
+    color: #2563eb;
+  }
+  
+  .country-flag {
+    vertical-align: middle;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-left: 0.5rem;
+  }
+  
+ 
+  @media (max-width: 640px) {
+    .players-container {
+      padding: 1rem;
+    }
+  
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+  
+    .player-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+  

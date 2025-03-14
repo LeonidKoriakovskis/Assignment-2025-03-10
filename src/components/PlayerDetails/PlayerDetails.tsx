@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Player } from "../../types/basketball";
+import styles from './PlayerDetails.module.css';
 
 interface PlayerDetailsProps {
   player: Player;
@@ -9,28 +10,63 @@ interface PlayerDetailsProps {
 
 const PlayerDetails = ({ player, onEdit, onDelete }: PlayerDetailsProps) => {
   return (
-    <div>
-      <h1>{player.name}</h1>
-      <p>Position: {player.position}</p>
-      {player.team && (
-        <p>
-          Team: <Link to={`/project/teams/${player.team.id}`}>{player.team.name}</Link>
-        </p>
-      )}
-      {player.country && (
-        <p>
-          Country: <Link to={`/project/countries/${player.country.id}`}>
-            {player.country.name}
-          </Link>
-          {' '}<img width="25px" src={player.country.flag} alt={player.country.name} />
-        </p>
-      )}
-      <div>
-        <button onClick={onEdit}>Edit</button>
-        <button onClick={onDelete}>Delete</button>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>{player.name}</h1>
+        <div className={styles.actions}>
+          <button 
+            className={styles.editButton}
+            onClick={onEdit}
+          >
+            Edit
+          </button>
+          <button 
+            className={styles.deleteButton}
+            onClick={onDelete}
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      <div>
-        <Link to="/project/players">Back to Players List</Link>
+
+      <div className={styles.details}>
+        {player.position && (
+          <div className={styles.detailItem}>
+            <span className={styles.label}>Position:</span>
+            <span className={styles.value}>{player.position}</span>
+          </div>
+        )}
+
+        {player.team && (
+          <div className={styles.detailItem}>
+            <span className={styles.label}>Team:</span>
+            <Link 
+              to={`/project/teams/${player.team.id}`}
+              className={styles.link}
+            >
+              {player.team.name}
+            </Link>
+          </div>
+        )}
+
+        {player.country && (
+          <div className={styles.detailItem}>
+            <span className={styles.label}>Country:</span>
+            <div className={styles.value}>
+              <Link 
+                to={`/project/countries/${player.country.id}`}
+                className={styles.link}
+              >
+                {player.country.name}
+              </Link>
+              <img 
+                className={styles.flag}
+                src={player.country.flag} 
+                alt={player.country.name}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { API_URL } from '../../api/apiUrl';
 import PlayerForm from '../../components/PlayerForm/PlayerForm';
 import PlayerDetails from '../../components/PlayerDetails/PlayerDetails';
 import { PlayerFormData } from '../../types/basketball';
+import styles from './PlayerPage.module.css';
 
 const PlayerPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -141,25 +142,25 @@ const PlayerPage = () => {
   }
 
   return (
-    <div>
-      {isEditing ? (
-        <PlayerForm
-          formData={formData}
-          onSubmit={handleSave}
-          onChange={handleInputChange}
-          onCancel={handleCancel}
-          state={state}
-          submitLabel="Save"
-          title="Edit Player"
-        />
-      ) : (
-        <PlayerDetails
-          player={player}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      )}
-    </div>
+    <div className={styles.container}>
+    {isEditing ? (
+      <PlayerForm
+        formData={formData}
+        onSubmit={handleSave}
+        onChange={handleInputChange}
+        onCancel={handleCancel}
+        state={state}
+        submitLabel="Save"
+        title="Edit Player"
+      />
+    ) : (
+      <PlayerDetails
+        player={player}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+    )}
+  </div>
   );
 };
 

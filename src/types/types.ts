@@ -18,6 +18,7 @@ export interface Country {
     country?: Country;
     league?: League;
     continent?: string
+    logo?: string; 
 
   }
   

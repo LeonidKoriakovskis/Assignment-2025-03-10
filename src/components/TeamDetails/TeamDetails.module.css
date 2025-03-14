@@ -1,0 +1,218 @@
+.team-details {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team-details h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .country-section,
+  .team-stats-section,
+  .roster-section,
+  .league-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f8fafc;
+    border-radius: 8px;
+  }
+  
+  .country-section h2,
+  .team-stats-section h2,
+  .roster-section h2,
+  .league-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  
+  .country-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .country-section span {
+    font-weight: 500;
+    color: #4b5563;
+  }
+  
+  .country-section img {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .stat-item label {
+    font-weight: 500;
+    color: #4b5563;
+    font-size: 0.875rem;
+  }
+  
+  .stat-item span {
+    font-size: 1.125rem;
+    color: #111827;
+    font-weight: 500;
+  }
+  
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .player-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+  
+  .player-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .jersey-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2563eb;
+    min-width: 40px;
+  }
+  
+  .player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .player-role {
+    font-weight: 500;
+    color: #111827;
+  }
+  
+  .player-since {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .league-section p {
+    margin: 0;
+  }
+  
+  .league-section a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .league-section a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+  
+  .action-buttons button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+  
+  .action-buttons button:first-child {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .action-buttons button:first-child:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .action-buttons button:last-child {
+    background-color: #dc2626;
+    color: white;
+  }
+  
+  .action-buttons button:last-child:hover {
+    background-color: #b91c1c;
+  }
+  
+  .navigation {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .navigation a {
+    color: #4b5563;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .navigation a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .team-details {
+      padding: 1rem;
+    }
+  
+    .team-details h1 {
+      font-size: 2rem;
+    }
+  
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .roster-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .country-section {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  

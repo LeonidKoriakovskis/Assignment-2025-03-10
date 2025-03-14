@@ -6,6 +6,8 @@ import axios from 'axios';
 import { API_URL } from '../../api/apiUrl';
 import PlayerForm from '../../components/PlayerForm/PlayerForm';
 import { PlayerFormData } from '../../types/basketball';
+import styles from './PlayersPage.module.css';
+
 
 const PlayersPage = () => {
   const { state, fetchData } = useBasketballContext();
@@ -100,10 +102,15 @@ const PlayersPage = () => {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Players</h1>
-        <button onClick={handleAdd}>Add Player</button>
+    <div className={styles['players-container']}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Players</h1>
+        <button 
+          className={styles['add-button']}
+          onClick={handleAdd}
+        >
+          Add Player
+        </button>
       </div>
 
       {isAdding && (
@@ -118,19 +125,50 @@ const PlayersPage = () => {
         />
       )}
 
-      {(state.loading || isLoading) && <p>Loading...</p>}
-      {state.error && <p>Error: {state.error}</p>}
-      <ul>
+      {(state.loading || isLoading) && (
+        <p className={styles.loading}>Loading...</p>
+      )}
+      
+      {state.error && (
+        <p className={styles.error}>Error: {state.error}</p>
+      )}
+      
+      <ul className={styles['players-list']}>
         {state.players.map((player) => (
-          <li key={player.id}>
-            <Link to={`/project/players/${player.id}`}>{player.name}</Link>
+          <li key={player.id} className={styles['player-item']}>
+            <Link 
+              to={`/project/players/${player.id}`} 
+              className={styles['player-name']}
+            >
+              {player.name}
+            </Link>
+            
             {player.team && (
-              <span> - <Link to={`/project/teams/${player.team.id}`}>{player.team.name}</Link></span>
+              <span className={styles['team-info']}>
+                {' '}- <Link 
+                  to={`/project/teams/${player.team.id}`} 
+                  className={styles['team-link']}
+                >
+                  {player.team.name}
+                </Link>
+              </span>
             )}
+            
             {player.country && (
-              <span>
-                {' '}- <Link to={`/project/countries/${player.country.id}`}>{player.country.name}</Link>
-                {' '}<img width={'25px'} src={player.country.flag} alt={player.country.name} />
+              <span className={styles['country-info']}>
+                {' '}- <Link 
+                  to={`/project/countries/${player.country.id}`} 
+                  className={styles['country-link']}
+                >
+                  {player.country.name}
+                </Link>
+                {' '}
+                <img 
+                  className={styles['country-flag']}
+                  width={'25px'} 
+                  src={player.country.flag} 
+                  alt={player.country.name} 
+                />
               </span>
             )}
           </li>

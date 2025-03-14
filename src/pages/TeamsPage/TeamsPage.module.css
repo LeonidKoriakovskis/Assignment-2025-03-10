@@ -1,0 +1,183 @@
+/* TeamsPage.module.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .addButton {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .addButton:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .loading {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    padding: 2rem;
+  }
+  
+  .error {
+    color: #dc2626;
+    background-color: #fee2e2;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  .teamsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .teamCard {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+  
+  .teamCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .teamLink {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .teamContent {
+    padding: 1.5rem;
+  }
+  
+  .teamHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .teamLogo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+  }
+  
+  .teamName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .teamInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+  }
+  
+  .label {
+    font-weight: 500;
+    min-width: 80px;
+  }
+  
+  .value {
+    color: #111827;
+  }
+  
+  .leagueLink {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .leagueLink:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+  }
+  
+  .countryInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .countryLink {
+    color: #2563eb;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .countryLink:hover {
+    text-decoration: underline;
+    color: #1d4ed8;
+  }
+  
+  .flag {
+    width: 24px;
+    height: auto;
+    border-radius: 4px;
+    vertical-align: middle;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+  
+    .teamsList {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  
+    .teamContent {
+      padding: 1rem;
+    }
+  }
+  

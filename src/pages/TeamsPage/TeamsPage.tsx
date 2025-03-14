@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API_URL } from '../../api/apiUrl';
 import TeamForm from '../../components/TeamForm/TeamForm';
 import { TeamFormData } from '../../types/basketball';
+import styles from '../../components/TeamsPage/TeamsPage.module.css';
 
 const TeamsPage = () => {
   const { state, fetchData } = useBasketballContext();
@@ -97,10 +98,15 @@ const TeamsPage = () => {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Teams</h1>
-        <button onClick={handleAdd}>Add Team</button>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Teams</h1>
+        <button 
+          className={styles.addButton}
+          onClick={handleAdd}
+        >
+          Add Team
+        </button>
       </div>
 
       {isAdding && (
@@ -115,21 +121,69 @@ const TeamsPage = () => {
         />
       )}
 
-      {(state.loading || isLoading) && <p>Loading...</p>}
-      {state.error && <p>Error: {state.error}</p>}
-      <ul>
+      {(state.loading || isLoading) && (
+        <p className={styles.loading}>Loading...</p>
+      )}
+      
+      {state.error && (
+        <p className={styles.error}>Error: {state.error}</p>
+      )}
+
+      <ul className={styles.teamsList}>
         {state.teams.map((team) => (
-          <li key={team.id}>
-            <Link to={`/project/teams/${team.id}`}>{team.name}</Link>
-            {team.league && (
-              <span> - <Link to={`/project/leagues/${team.league.id}`}>{team.league.name}</Link> - </span>
-            )}
-            {team.country && (
-              <span>
-                <img width={'25px'} src={team.country.flag} alt={team.country.name} />
-                <Link to={`/project/countries/${team.country.id}`}>{team.country.name}</Link>
-              </span>
-            )}
+          <li key={team.id} className={styles.teamCard}>
+            <Link 
+              to={`/project/teams/${team.id}`} 
+              className={styles.teamLink}
+            >
+              <div className={styles.teamContent}>
+                <div className={styles.teamHeader}>
+                  {team.logo && (
+                    <img 
+                      className={styles.teamLogo}
+                      src={team.logo} 
+                      alt={`${team.name} logo`}
+                    />
+                  )}
+                  <h2 className={styles.teamName}>{team.name}</h2>
+                </div>
+
+                <div className={styles.teamInfo}>
+                  {team.league && (
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>League:</span>
+                      <Link 
+                        to={`/project/leagues/${team.league.id}`}
+                        className={styles.leagueLink}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {team.league.name}
+                      </Link>
+                    </div>
+                  )}
+
+                  {team.country && (
+                    <div className={styles.infoItem}>
+                      <span className={styles.label}>Country:</span>
+                      <div className={styles.countryInfo}>
+                        <Link 
+                          to={`/project/countries/${team.country.id}`}
+                          className={styles.countryLink}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {team.country.name}
+                        </Link>
+                        <img 
+                          className={styles.flag}
+                          src={team.country.flag} 
+                          alt={team.country.name}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
