@@ -38,7 +38,7 @@ export const basketballReducer = (state: State, action: Action): State => {
                 const key = action.payload.type;
                 const currentArray = state[key] as Array<typeof action.payload.item>;
                 
-                // Check if item already exists
+                
                 const itemExists = currentArray.some(item => item.id === action.payload.item.id);
                 if (itemExists) {
                     return state;
@@ -57,7 +57,7 @@ export const basketballReducer = (state: State, action: Action): State => {
                     return state;
                 }
             
-                // Only update if item exists and has changes
+                
                 const existingItem = currentArray.find(item => item.id === action.payload.item.id);
                 if (!existingItem || JSON.stringify(existingItem) === JSON.stringify(action.payload.item)) {
                     return state;
@@ -78,7 +78,7 @@ export const basketballReducer = (state: State, action: Action): State => {
                     return state;
                 }
     
-                // Only filter if item exists
+                
                 if (!currentArray.some(item => item.id === action.payload.id)) {
                     return state;
                 }

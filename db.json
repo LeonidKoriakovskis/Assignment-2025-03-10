@@ -69,6 +69,13 @@
       "teamId": 3,
       "countryId": 2,
       "id": 10
+    },
+    {
+      "name": "Petras Jablonskis",
+      "position": "Guard",
+      "teamId": 2,
+      "countryId": 3,
+      "id": 11
     }
   ],
   "teams": [

@@ -5,10 +5,10 @@ import axios from 'axios';
 import { ActionTypes, basketballReducer, initialState } from "./BasketballReducer";
 import { API_URL } from "../api/apiUrl";
 
-// Define a type for valid entities
+
 type Entity = Player | Team | League | Country;
 
-// Define your context props interface
+
 interface BasketballContextProps {
     state: State;
     fetchData: (type: keyof State, endpoint: string) => Promise<void>;
