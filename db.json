@@ -82,7 +82,7 @@
     {
       "name": "Los Angeles Lakers",
       "leagueId": 2,
-      "countryId": 2,
+      "countryId": 1,
       "id": 1
     },
     {
@@ -198,12 +198,6 @@
       "name": "Rytas",
       "leagueId": 9,
       "countryId": 9
-    },
-    {
-      "name": "Cbet Jonava",
-      "leagueId": 9,
-      "countryId": 9,
-      "id": 21
     }
   ],
   "leagues": [
@@ -308,10 +302,10 @@
       "flag": "https://flagcdn.com/w320/es.png"
     },
     {
-      "id": 9,
       "name": "Lithuania",
       "continent": "Europe",
-      "flag": "https://flagcdn.com/w320/lt.png"
+      "flag": "https://flagcdn.com/w320/lt.png",
+      "id": 9
     }
   ],
   "teamStats": [
